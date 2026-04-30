@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Политика конфиденциальности · Валерий Сиднев</title>
+  <meta name="description" content="Политика конфиденциальности — как и зачем собираются персональные данные на сайте Валерия Сиднева" />
+
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0A0A0A', 'ink-2': '#111111', 'ink-3': '#1A1A1A',
+            line: '#262626', muted: '#A3A3A3',
+            acid: '#D9FF1C', clay: '#CE7B29'
+          },
+          fontFamily: { sans: ['Manrope', 'system-ui', 'sans-serif'] },
+          letterSpacing: { wide2: '0.18em', wide3: '0.22em' }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin:0; padding:0; max-width:100%; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Manrope', system-ui, sans-serif; background:#0A0A0A; color:#FFFFFF; -webkit-font-smoothing:antialiased; }
+
+    .cta-acid {
+      display:inline-flex; align-items:center; gap:10px;
+      background:#D9FF1C; color:#0A0A0A;
+      text-transform:uppercase; letter-spacing:0.18em; font-weight:600; font-size:13px;
+      padding:14px 24px; border-radius:9999px; text-decoration:none;
+      border:1px solid #D9FF1C;
+      transition:all .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .cta-acid:hover { background:#E8FF66; transform:translateY(-2px); box-shadow:0 18px 48px -12px rgba(217,255,28,.5); }
+
+    .cta-ghost {
+      display:inline-flex; align-items:center; gap:10px;
+      background:transparent; color:#FFF;
+      border:1px solid rgba(255,255,255,.4);
+      text-transform:uppercase; letter-spacing:0.18em; font-weight:600; font-size:13px;
+      padding:14px 24px; border-radius:9999px; text-decoration:none;
+      transition:all .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .cta-ghost:hover { background:rgba(255,255,255,.08); transform:translateY(-2px); }
+
+    a.in-text { color:#D9FF1C; text-decoration:none; transition:color .25s; border-bottom:1px solid rgba(217,255,28,.3); }
+    a.in-text:hover { color:#E8FF66; border-bottom-color:#D9FF1C; }
+
+    .section-num {
+      font-feature-settings:'tnum' 1,'lnum' 1;
+      color:#CE7B29; font-weight:800;
+      font-size:clamp(48px, 5vw, 72px); line-height:1;
+      letter-spacing:-0.02em;
+    }
+    .section-h2 {
+      font-weight:800; font-size:clamp(22px, 2.6vw, 32px); line-height:1.2;
+      letter-spacing:-0.01em; text-transform:uppercase;
+    }
+    .pp-section {
+      display:grid; grid-template-columns:120px 1fr; gap:32px;
+      padding:48px 0; border-bottom:1px solid #262626;
+    }
+    .pp-section:last-of-type { border-bottom:0; }
+    @media (max-width: 700px) {
+      .pp-section { grid-template-columns:1fr; gap:16px; padding:36px 0; }
+    }
+
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.8,.2,1), transform 1.1s cubic-bezier(.2,.8,.2,1); }
+    .reveal.in { opacity:1; transform:translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity:1; transform:none; transition:none; }
+    }
+  </style>
+</head>
+
+<body class="font-sans">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 border-b border-line" style="background:rgba(10,10,10,0.7); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);">
+    <div class="max-w-[1100px] mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-6">
+      <a href="index.html" class="flex items-center gap-3 uppercase tracking-wide2 text-xs sm:text-[13px] font-semibold text-white" style="text-decoration:none;">
+        <span class="text-acid">←</span>
+        <span>На&nbsp;главную</span>
+      </a>
+      <a href="index.html#contact" class="cta-acid !py-2.5 !px-4 sm:!px-5 !text-xs">Написать</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="px-5 sm:px-8 pt-16 sm:pt-24 pb-10 sm:pb-12">
+    <div class="max-w-[1100px] mx-auto">
+      <div class="uppercase tracking-wide3 text-[12px] font-semibold text-muted mb-6 reveal">Документ</div>
+      <h1 class="m-0 font-extrabold tracking-tight reveal" style="font-size:clamp(36px,6vw,72px); line-height:1.05; letter-spacing:-0.02em; text-wrap:balance;">
+        Политика<br/><span class="text-acid">конфиденциальности</span>
+      </h1>
+      <p class="mt-6 text-muted text-[15px] reveal">Редакция от 29&nbsp;апреля 2026&nbsp;года</p>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <main class="px-5 sm:px-8 pb-16 sm:pb-24">
+    <div class="max-w-[1100px] mx-auto">
+
+      <!-- 01 -->
+      <article class="pp-section reveal">
+        <div class="section-num">01</div>
+        <div>
+          <h2 class="section-h2 m-0">Общие положения</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <p>Настоящая Политика описывает, какие персональные данные собираются на сайте <a href="http://ryambov.ru" class="in-text">ryambov.ru</a> (далее — Сайт), на каком основании они обрабатываются и как защищаются</p>
+            <p>Оператор данных — <span class="text-white">Сиднев Валерий Владимирович</span>, самозанятый (плательщик налога на профессиональный доход), <span class="text-white">ИНН 540200358829</span>, далее — «Исполнитель»</p>
+            <p>Политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных». Используя Сайт и отправляя формы, вы подтверждаете согласие с условиями настоящей Политики</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 02 -->
+      <article class="pp-section reveal">
+        <div class="section-num">02</div>
+        <div>
+          <h2 class="section-h2 m-0">Какие данные собираются</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <p>Исполнитель собирает только те данные, которые вы сообщаете сами:</p>
+            <ul class="m-0 p-0 space-y-2.5" style="list-style:none;">
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Имя или то, как к вам обращаться</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Контакт для связи — телефон, Telegram, WhatsApp, e-mail или ссылка на профиль</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Текст сообщения о вашей задаче</span></li>
+            </ul>
+            <p class="pt-2">Дополнительно автоматически собираются технические данные:</p>
+            <ul class="m-0 p-0 space-y-2.5" style="list-style:none;">
+              <li class="flex items-start gap-3"><span class="text-clay mt-1.5 flex-shrink-0" style="color:#CE7B29;">→</span><span>IP-адрес, тип и версия браузера, операционная система</span></li>
+              <li class="flex items-start gap-3"><span class="text-clay mt-1.5 flex-shrink-0" style="color:#CE7B29;">→</span><span>Страницы, которые вы открыли на Сайте, источник перехода, время визита</span></li>
+              <li class="flex items-start gap-3"><span class="text-clay mt-1.5 flex-shrink-0" style="color:#CE7B29;">→</span><span>Cookie-файлы счётчиков (Яндекс.Метрика)</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03 -->
+      <article class="pp-section reveal">
+        <div class="section-num">03</div>
+        <div>
+          <h2 class="section-h2 m-0">Для чего используются данные</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <ul class="m-0 p-0 space-y-2.5" style="list-style:none;">
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Ответить вам по присланной заявке и обсудить задачу</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Сформировать коммерческое предложение или договор</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Вести с вами переписку в рамках работы над проектом</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Улучшать Сайт и понимать, какие разделы востребованы (обезличенная статистика)</span></li>
+            </ul>
+            <p class="pt-2 text-white/80">Данные не передаются третьим лицам, не продаются и не используются для рекламных рассылок</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04 -->
+      <article class="pp-section reveal">
+        <div class="section-num">04</div>
+        <div>
+          <h2 class="section-h2 m-0">Где хранятся данные</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <p>Заявки с Сайта уходят на e-mail Исполнителя через сервис <a href="https://web3forms.com" target="_blank" rel="noopener" class="in-text">web3forms.com</a> и (опционально) дублируются сообщением в Telegram. Переписка хранится в соответствующих мессенджерах и почтовом ящике</p>
+            <p>Хостинг Сайта, почтовый сервер и сервисы аналитики находятся на территории Российской Федерации либо соответствуют требованиям 152-ФЗ по трансграничной передаче</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 05 -->
+      <article class="pp-section reveal">
+        <div class="section-num">05</div>
+        <div>
+          <h2 class="section-h2 m-0">Сколько хранятся данные</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <ul class="m-0 p-0 space-y-2.5" style="list-style:none;">
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Данные по открытым проектам — в течение срока работы и ещё один год после завершения для возможной поддержки</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Отказные заявки (когда сотрудничество не состоялось) — до 90 дней</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Данные счётчиков аналитики — в обезличенном виде, по правилам самих счётчиков</span></li>
+            </ul>
+            <p class="pt-2 text-white/80">По запросу пользователя данные удаляются раньше срока</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 06 -->
+      <article class="pp-section reveal">
+        <div class="section-num">06</div>
+        <div>
+          <h2 class="section-h2 m-0">Cookie-файлы</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <p>Сайт использует cookie для корректной работы страниц и сбора обезличенной статистики посещений. Вы можете отключить cookie в настройках своего браузера — при этом часть функций Сайта может работать ограниченно</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 07 -->
+      <article class="pp-section reveal">
+        <div class="section-num">07</div>
+        <div>
+          <h2 class="section-h2 m-0">Права пользователя</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <p>Вы имеете право:</p>
+            <ul class="m-0 p-0 space-y-2.5" style="list-style:none;">
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Запросить, какие ваши данные хранятся у Исполнителя</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Попросить исправить или удалить ваши данные</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Отозвать согласие на обработку данных в любой момент</span></li>
+              <li class="flex items-start gap-3"><span class="text-acid mt-1.5 flex-shrink-0">→</span><span>Обжаловать действия Исполнителя в Роскомнадзоре</span></li>
+            </ul>
+            <p class="pt-2">Для этого напишите на e-mail <a href="mailto:valerii.sidnev@gmail.com" class="in-text">valerii.sidnev@gmail.com</a> — запрос будет обработан в течение 10 рабочих дней</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 08 -->
+      <article class="pp-section reveal">
+        <div class="section-num">08</div>
+        <div>
+          <h2 class="section-h2 m-0">Защита данных</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <p>Исполнитель применяет разумные технические и организационные меры для защиты полученных данных от потери, кражи или несанкционированного доступа. Передача данных через Сайт осуществляется по защищённому соединению (HTTPS)</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 09 -->
+      <article class="pp-section reveal">
+        <div class="section-num">09</div>
+        <div>
+          <h2 class="section-h2 m-0">Изменение Политики</h2>
+          <div class="mt-5 text-muted leading-[1.75] text-[16px] space-y-4">
+            <p>Политика может обновляться. Актуальная версия всегда доступна по адресу <a href="https://valery-sidnev.ru/privacy.html" class="in-text">valery-sidnev.ru/privacy.html</a>. Дата последней редакции указана в начале документа</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- КОНТАКТЫ ИСПОЛНИТЕЛЯ -->
+    <div class="max-w-[1100px] mx-auto mt-12 sm:mt-20">
+      <div class="reveal rounded-[28px] sm:rounded-[36px] p-7 sm:p-12" style="background:linear-gradient(180deg,#141414 0%,#0E0E0E 100%); border:1px solid #262626;">
+        <div class="uppercase tracking-wide3 text-[12px] font-semibold text-acid mb-5">Контакты исполнителя</div>
+        <h2 class="m-0 font-extrabold tracking-tight" style="font-size:clamp(26px,3.6vw,40px); line-height:1.1; letter-spacing:-0.02em;">
+          Сиднев&nbsp;Валерий<br/>Владимирович
+        </h2>
+
+        <div class="mt-8 grid gap-x-10 gap-y-5" style="grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));">
+          <div>
+            <div class="uppercase tracking-wide2 text-[11px] font-semibold text-muted mb-1.5">Статус</div>
+            <div class="text-white text-[15px]">Самозанятый (НПД)</div>
+          </div>
+          <div>
+            <div class="uppercase tracking-wide2 text-[11px] font-semibold text-muted mb-1.5">ИНН</div>
+            <div class="text-white text-[15px]" style="font-feature-settings:'tnum' 1;">540200358829</div>
+          </div>
+          <div>
+            <div class="uppercase tracking-wide2 text-[11px] font-semibold text-muted mb-1.5">E-mail</div>
+            <a href="mailto:valerii.sidnev@gmail.com" class="in-text text-[15px]">valerii.sidnev@gmail.com</a>
+          </div>
+          <div>
+            <div class="uppercase tracking-wide2 text-[11px] font-semibold text-muted mb-1.5">Телефон</div>
+            <a href="tel:+79994671903" class="in-text text-[15px]">+7&nbsp;(999)&nbsp;467-19-03</a>
+          </div>
+          <div>
+            <div class="uppercase tracking-wide2 text-[11px] font-semibold text-muted mb-1.5">Telegram</div>
+            <a href="https://t.me/valerii_sidnev" target="_blank" rel="noopener" class="in-text text-[15px]">@valerii_sidnev</a>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="index.html" class="cta-ghost">← Вернуться на главную</a>
+          <a href="index.html#contact" class="cta-acid">Связаться</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="px-5 sm:px-8 pt-12 pb-8 border-t border-line">
+    <div class="max-w-[1100px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+      <a href="index.html" class="uppercase tracking-wide2 text-[11px] text-muted hover:text-white transition" style="text-decoration:none;">© 2026 · Валерий Сиднев</a>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 uppercase tracking-wide2 text-[11px] text-muted">
+        <a href="tel:+79994671903" class="hover:text-white transition">+7&nbsp;(999)&nbsp;467-19-03</a>
+        <a href="https://t.me/valerii_sidnev" target="_blank" rel="noopener" class="hover:text-white transition">Telegram</a>
+        <a href="index.html" class="hover:text-white transition">На&nbsp;главную</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AUTHOR CREDIT -->
+  <div class="px-5 sm:px-8 py-7 flex justify-center border-t border-line" style="background:rgba(26,26,26,.4);">
+    <a href="index.html" aria-label="Валерий Сиднев — Web Developer" class="opacity-85 hover:opacity-100 transition">
+      <img src="assets/my-logo.png" alt="Валерий Сиднев — Web Developer" class="h-10 sm:h-11 w-auto block" />
+    </a>
+  </div>
+
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
