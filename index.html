@@ -197,7 +197,12 @@
     }
     @media (max-width: 560px) {
       .hero-wrap { min-height: 92svh; }
-      .hero-bg-img { object-position:60% center; }
+      /* Сдвигаем фото вниз на высоту хедера — лицо не уходит за навбар */
+      .hero-bg-img {
+        object-position: 60% 0%;
+        top: 56px;
+        height: calc(100% - 56px);
+      }
     }
     .hero-scrim { background:linear-gradient(90deg, rgba(10,10,10,.96) 0%, rgba(10,10,10,.86) 35%, rgba(10,10,10,.55) 65%, rgba(10,10,10,.35) 100%); }
     @media (max-width: 700px) {
@@ -367,19 +372,20 @@
     .work-preview {
       position:absolute; inset:0; z-index:0; overflow:hidden;
     }
-    /* Liza iframe — заполняет всю карточку от края до края.
-       Размер 1280px фиксирован, scale пересчитывается JS-ом через CSS-переменную --liza-scale.
+    /* Liza / Vladimir iframe — заполняет всю карточку от края до края.
+       Размер 1280px фиксирован, scale пересчитывается JS-ом через CSS-переменную.
        max-width:none — обязательно override-ит глобальное правило `iframe { max-width:100% }`. */
-    .liza-frame {
+    .liza-frame, .vladimir-frame {
       position:absolute; top:0; left:0;
       width:1280px !important; height:1600px !important;
       max-width:none !important;
       border:0;
       transform-origin:top left;
       pointer-events:none;
-      transform:scale(var(--liza-scale, 0.25));
       transition:opacity .35s ease;
     }
+    .liza-frame     { transform:scale(var(--liza-scale, 0.25)); }
+    .vladimir-frame { transform:scale(var(--vladimir-scale, 0.25)); }
 
     .work-preview-bg {
       position:absolute; inset:0; z-index:0;
@@ -466,7 +472,7 @@
     }
     .modal-overlay.is-open { display:flex; opacity:1; }
     .modal {
-      width:100%; max-width:1200px; max-height:92vh; overflow:hidden;
+      width:100%; max-width:1200px; max-height:97vh; overflow:hidden;
       background:#111111; border:1px solid #262626; border-radius:24px;
       display:flex; flex-direction:column;
       transform:translateY(32px) scale(.96);
@@ -493,7 +499,7 @@
       flex-shrink:0; transition:background .25s, transform .25s;
     }
     .modal-close:hover { background:rgba(255,255,255,.14); transform:scale(1.05); }
-    .modal-iframe { flex:1; width:100%; height:75vh; min-height:480px; border:0; background:#FFFFFF; }
+    .modal-iframe { flex:1; width:100%; height:88vh; min-height:560px; border:0; background:#FFFFFF; }
 
     /* ============ MEDIA ============ */
     @media (max-width: 1024px) {
@@ -531,12 +537,12 @@
         flex: 1;
         min-width: 0;
       }
-      /* Уменьшить числа и подписи */
-      .hero-stat-num { font-size: 18px !important; }
-      .hero-stat-label {
+      /* Уменьшить числа и подписи — двойной класс для перебивания Tailwind */
+      .hero-stats .hero-stat-num { font-size: 18px !important; }
+      .hero-stats .hero-stat-label {
         font-size: 7.5px !important;
-        letter-spacing: 0.08em !important;
-        line-height: 1.3 !important;
+        letter-spacing: 0.06em !important;
+        line-height: 1.25 !important;
       }
     }
 
@@ -616,8 +622,6 @@
       <div class="mt-auto pt-16 sm:pt-24 hero-bottom-pad">
         <div class="hero-cta-row flex flex-wrap gap-3.5 items-center">
           <a href="https://t.me/valerii_sidnev" target="_blank" rel="noopener" class="cta-base cta-acid seq" data-seq="1">Написать в Telegram</a>
-          <a href="#contact" class="cta-base cta-glass seq" data-seq="2">Оставить заявку</a>
-          <a href="#pricing" class="cta-base cta-ghost seq" data-seq="3">Рассчитать стоимость</a>
         </div>
 
         <div class="mt-12 sm:mt-14 flex flex-wrap gap-x-10 gap-y-5 reveal-soft hero-stats">
@@ -780,28 +784,26 @@
           </div>
         </button>
 
-        <!-- SOON — placeholder with gradient + glass strip -->
-        <a href="#contact" class="work-card reveal">
-          <div class="work-preview-bg" style="background:radial-gradient(80% 60% at 30% 40%, #2A2A2A 0%, #161616 60%, #0F0F0F 100%);"></div>
-          <div class="work-preview-bg" style="background:radial-gradient(40% 30% at 70% 70%, rgba(163,163,163,.20), transparent 70%);"></div>
-          <div class="absolute inset-0 z-0 flex items-center justify-center" aria-hidden="true">
-            <div class="text-muted/30 font-extrabold tracking-tight" style="font-size:clamp(56px,9vw,140px); line-height:1; letter-spacing:-0.03em;">?</div>
+        <!-- VLADIMIR — full iframe + glass strip -->
+        <button type="button" class="work-card reveal" data-open-vladimir style="padding:0; font:inherit;">
+          <div class="work-preview">
+            <iframe class="vladimir-frame" src="https://s1dnev.github.io/Vladimir-chistydom-nsk/index.html" loading="lazy" referrerpolicy="no-referrer" tabindex="-1" title=""></iframe>
           </div>
           <div class="work-badge-row">
-            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full uppercase tracking-wide2 text-[10px] font-semibold text-muted"
-                  style="border:1px solid rgba(163,163,163,.3); background:rgba(10,10,10,.55); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
-              <span class="w-1.5 h-1.5 rounded-full bg-muted"></span>В работе
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full uppercase tracking-wide2 text-[10px] font-semibold text-acid"
+                  style="border:1px solid rgba(217,255,28,.4); background:rgba(10,10,10,.55); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
+              <span class="w-1.5 h-1.5 rounded-full bg-acid"></span>HTML · Клининг
             </span>
           </div>
           <div class="work-glass-fade"></div>
           <div class="work-glass">
-            <h3 class="m-0 font-extrabold tracking-tight text-muted" style="font-size:clamp(20px,2.4vw,26px); line-height:1.1;">СКОРО</h3>
-            <p class="text-white/70 leading-[1.5] text-[13px] mt-2 mb-0">Новый кейс — лендинг для бьюти-бренда</p>
-            <div class="work-arrow mt-3 inline-flex items-center gap-2.5 uppercase tracking-wide2 text-[11px] font-semibold text-muted">
-              Написать <span aria-hidden="true">→</span>
+            <h3 class="m-0 font-extrabold tracking-tight text-white" style="font-size:clamp(20px,2.4vw,26px); line-height:1.1;">ЧИСТЫЙ ДОМ НСК</h3>
+            <p class="text-white/85 leading-[1.5] text-[13px] mt-2 mb-0">Клининговая компания в Новосибирске. Лендинг под ключ</p>
+            <div class="work-arrow mt-3 inline-flex items-center gap-2.5 uppercase tracking-wide2 text-[11px] font-semibold text-acid">
+              Посмотреть кейс <span aria-hidden="true">→</span>
             </div>
           </div>
-        </a>
+        </button>
 
         <!-- YOURS — clay -->
         <a href="#contact" class="work-card is-clay reveal">
@@ -1096,6 +1098,25 @@
     </div>
   </div>
 
+  <!-- ============ VLADIMIR MODAL ============ -->
+  <div class="modal-overlay" id="vladimirModal" role="dialog" aria-modal="true" aria-label="Кейс — Чистый Дом НСК">
+    <div class="modal">
+      <div class="modal-bar">
+        <span class="frame-dot" style="background:#FF5F57;"></span>
+        <span class="frame-dot" style="background:#FEBC2E;"></span>
+        <span class="frame-dot" style="background:#28C840;"></span>
+        <div class="frame-url">s1dnev.github.io/Vladimir-chistydom-nsk — <span style="color:#D9FF1C;">кейс Валерия</span></div>
+        <a href="https://s1dnev.github.io/Vladimir-chistydom-nsk/index.html" target="_blank" rel="noopener"
+           class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full uppercase tracking-wide2 text-[10px] font-semibold text-white border border-line hover:border-acid transition"
+           style="text-decoration:none;">
+          В новой&nbsp;вкладке <span aria-hidden="true">↗</span>
+        </a>
+        <button class="modal-close" aria-label="Закрыть" data-close-vladimir>×</button>
+      </div>
+      <iframe id="vladimirIframe" class="modal-iframe" src="about:blank" referrerpolicy="no-referrer" title="Чистый Дом НСК — превью"></iframe>
+    </div>
+  </div>
+
   <!-- ============ JS ============ -->
   <script>
     // ============ BURGER MENU (mobile nav) ============
@@ -1266,45 +1287,50 @@
       });
     })();
 
-    // ============ LIZA PREVIEW — fit iframe to card width ============
+    // ============ WORK PREVIEWS — fit iframes to card width ============
     (function () {
       var BASE = 1280;
-      function fitFrames() {
+
+      function fitAll() {
+        // Liza
         document.querySelectorAll('.liza-frame').forEach(function (frame) {
           var card = frame.closest('.work-card');
           if (!card) return;
-          var rect = card.getBoundingClientRect();
-          var w = rect.width || card.offsetWidth;
+          var w = card.getBoundingClientRect().width || card.offsetWidth;
           if (!w || w < 50) return;
-          var scale = w / BASE;
-          frame.style.setProperty('--liza-scale', scale.toFixed(4));
+          frame.style.setProperty('--liza-scale', (w / BASE).toFixed(4));
+        });
+        // Vladimir
+        document.querySelectorAll('.vladimir-frame').forEach(function (frame) {
+          var card = frame.closest('.work-card');
+          if (!card) return;
+          var w = card.getBoundingClientRect().width || card.offsetWidth;
+          if (!w || w < 50) return;
+          frame.style.setProperty('--vladimir-scale', (w / BASE).toFixed(4));
         });
       }
-      // Несколько триггеров — гарантированный фит после layout/load
+
       function init() {
-        fitFrames();
-        requestAnimationFrame(fitFrames);
-        setTimeout(fitFrames, 100);
-        setTimeout(fitFrames, 500);
+        fitAll();
+        requestAnimationFrame(fitAll);
+        setTimeout(fitAll, 100);
+        setTimeout(fitAll, 500);
       }
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
       } else { init(); }
-      window.addEventListener('load', fitFrames);
+      window.addEventListener('load', fitAll);
 
-      // ResizeObserver на каждой карточке — самый надёжный способ
       if ('ResizeObserver' in window) {
         var ro = new ResizeObserver(function () {
-          if (window.__lizaRaf) cancelAnimationFrame(window.__lizaRaf);
-          window.__lizaRaf = requestAnimationFrame(fitFrames);
+          if (window.__workRaf) cancelAnimationFrame(window.__workRaf);
+          window.__workRaf = requestAnimationFrame(fitAll);
         });
         document.querySelectorAll('.work-card').forEach(function (c) { ro.observe(c); });
       }
-
-      // Резерв на window resize
       window.addEventListener('resize', function () {
-        if (window.__lizaRaf) cancelAnimationFrame(window.__lizaRaf);
-        window.__lizaRaf = requestAnimationFrame(fitFrames);
+        if (window.__workRaf) cancelAnimationFrame(window.__workRaf);
+        window.__workRaf = requestAnimationFrame(fitAll);
       }, { passive: true });
     })();
 
@@ -1330,6 +1356,32 @@
       modal.querySelectorAll('[data-close-liza]').forEach(function (b) { b.addEventListener('click', close); });
       modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+    })();
+
+    // ============ VLADIMIR MODAL ============
+    (function () {
+      var modal  = document.getElementById('vladimirModal');
+      var iframe = document.getElementById('vladimirIframe');
+      if (!modal || !iframe) return;
+      var url = 'https://s1dnev.github.io/Vladimir-chistydom-nsk/index.html';
+      function open()  {
+        iframe.src = url;
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+        setTimeout(function () { iframe.src = 'about:blank'; }, 500);
+      }
+      document.querySelectorAll('[data-open-vladimir]').forEach(function (b) {
+        b.addEventListener('click', function (e) { e.preventDefault(); open(); });
+      });
+      modal.querySelectorAll('[data-close-vladimir]').forEach(function (b) { b.addEventListener('click', close); });
+      modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+      });
     })();
 
     // ============ FORM SUBMIT — email + Telegram Bot ============
