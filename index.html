@@ -191,6 +191,10 @@
       object-position:75% center;
       filter:saturate(.9);
       transition:object-position .35s ease;
+      /* iOS Safari: форсируем GPU-рендеринг чтобы <img> не пропадал */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
     }
     @media (max-width: 900px) {
       .hero-bg-img { object-position:65% center; }
@@ -386,6 +390,16 @@
     }
     .liza-frame     { transform:scale(var(--liza-scale, 0.25)); }
     .vladimir-frame { transform:scale(var(--vladimir-scale, 0.25)); }
+
+    /* Тёмный tint-оверлей поверх iframe-превью — маскирует белые попапы/баннеры
+       внешних сайтов, при этом превью остаётся видимым. z-index:2 — выше iframe,
+       ниже work-badge-row и work-glass которые лежат на work-card напрямую. */
+    .work-preview::after {
+      content:'';
+      position:absolute; inset:0; z-index:2;
+      pointer-events:none;
+      background:rgba(10,10,10,0.45);
+    }
 
     .work-preview-bg {
       position:absolute; inset:0; z-index:0;
@@ -694,11 +708,12 @@
   </section>
 
   <!-- ============ STAGES (process) — static list, clay numbers, new background ============ -->
-  <section id="stages" class="relative overflow-hidden px-5 sm:px-8 py-24 sm:py-32">
+  <!-- CSS background-image вместо <img> — надёжно работает на iOS Safari -->
+  <section id="stages" class="relative overflow-hidden px-5 sm:px-8 py-24 sm:py-32"
+           style="background-image:url('assets/stages-bg.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat;">
     <div class="absolute inset-0 z-0" aria-hidden="true">
-      <img src="assets/stages-bg.jpg" alt="" class="absolute inset-0 w-full h-full"
-           style="object-fit:cover; opacity:.18; filter:grayscale(.3) saturate(.85);" />
-      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(10,10,10,.95) 0%, rgba(10,10,10,.65) 50%, rgba(10,10,10,.95) 100%);"></div>
+      <div class="absolute inset-0" style="background:rgba(10,10,10,.83);"></div>
+      <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.25) 50%, rgba(10,10,10,.55) 100%);"></div>
       <div class="absolute inset-0" style="background:radial-gradient(40% 28% at 78% 22%, rgba(206,123,41,.14), transparent 65%);"></div>
       <div class="absolute inset-0" style="background:radial-gradient(28% 20% at 18% 78%, rgba(217,255,28,.10), transparent 65%);"></div>
     </div>
@@ -771,13 +786,13 @@
           <div class="work-badge-row">
             <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full uppercase tracking-wide2 text-[10px] font-semibold text-acid"
                   style="border:1px solid rgba(217,255,28,.4); background:rgba(10,10,10,.55); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
-              <span class="w-1.5 h-1.5 rounded-full bg-acid"></span>Tilda · Лендинг
+              <span class="w-1.5 h-1.5 rounded-full bg-acid"></span>HTML · Лендинг
             </span>
           </div>
           <div class="work-glass-fade"></div>
           <div class="work-glass">
             <h3 class="m-0 font-extrabold tracking-tight text-white" style="font-size:clamp(20px,2.4vw,26px); line-height:1.1;">LIZA MAKES RUGS</h3>
-            <p class="text-white/85 leading-[1.5] text-[13px] mt-2 mb-0">Тафтинговые ковры на заказ. Hero, галерея, услуги, FAQ</p>
+            <p class="text-white/85 leading-[1.5] text-[13px] mt-2 mb-0">Тафтинговые ковры на заказ. <br> Hero, галерея, услуги, FAQ</p>
             <div class="work-arrow mt-3 inline-flex items-center gap-2.5 uppercase tracking-wide2 text-[11px] font-semibold text-acid">
               Посмотреть кейс <span aria-hidden="true">→</span>
             </div>
@@ -792,13 +807,13 @@
           <div class="work-badge-row">
             <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full uppercase tracking-wide2 text-[10px] font-semibold text-acid"
                   style="border:1px solid rgba(217,255,28,.4); background:rgba(10,10,10,.55); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
-              <span class="w-1.5 h-1.5 rounded-full bg-acid"></span>HTML · Клининг
+              <span class="w-1.5 h-1.5 rounded-full bg-acid"></span>HTML · Инсекция
             </span>
           </div>
           <div class="work-glass-fade"></div>
           <div class="work-glass">
             <h3 class="m-0 font-extrabold tracking-tight text-white" style="font-size:clamp(20px,2.4vw,26px); line-height:1.1;">ЧИСТЫЙ ДОМ НСК</h3>
-            <p class="text-white/85 leading-[1.5] text-[13px] mt-2 mb-0">Клининговая компания в Новосибирске. Лендинг под ключ</p>
+            <p class="text-white/85 leading-[1.5] text-[13px] mt-2 mb-0">Клининговая компания в Новосибирске. <br> Лендинг под ключ</p>
             <div class="work-arrow mt-3 inline-flex items-center gap-2.5 uppercase tracking-wide2 text-[11px] font-semibold text-acid">
               Посмотреть кейс <span aria-hidden="true">→</span>
             </div>
