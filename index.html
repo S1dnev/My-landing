@@ -245,10 +245,10 @@
     .prob-line {
       position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
-      opacity:0; transform:translateY(28px);
-      transition:opacity 1.1s cubic-bezier(.2,.8,.2,1), transform 1.1s cubic-bezier(.2,.8,.2,1);
+      opacity:0; visibility:hidden; transform:translateY(28px);
+      transition:opacity 1.1s cubic-bezier(.2,.8,.2,1), transform 1.1s cubic-bezier(.2,.8,.2,1), visibility 0s linear 1.1s;
     }
-    .prob-line.is-active { opacity:1; transform:translateY(0); }
+    .prob-line.is-active { opacity:1; visibility:visible; transform:translateY(0); transition:opacity 1.1s cubic-bezier(.2,.8,.2,1), transform 1.1s cubic-bezier(.2,.8,.2,1), visibility 0s linear 0s; }
     .prob-line h2 {
       margin:0; font-weight:800;
       font-size:clamp(28px, 5.6vw, 72px); line-height:1.1;
@@ -562,7 +562,9 @@
 
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal-soft, .seq, .sol-joy, .sol-sub, .sol-chip,
-      .stage-row, .prob-line, .sol-photo-img { opacity:1; transform:none; transition:none; }
+      .stage-row, .sol-photo-img { opacity:1; transform:none; transition:none; }
+      /* .prob-line — ротатор: строки переключает JS, нельзя форсить opacity:1 всем сразу */
+      .prob-line { transition:none; }
       .work-card:hover { transform:none; }
       .preloader { display:none; }
       body.is-loading { overflow:auto; }
@@ -1239,6 +1241,9 @@
     })();
 
     // ============ PROBLEM ROTATING ============
+    // Не используем IntersectionObserver для запуска — в Chrome 148+ он ненадёжен
+    // для элементов уже находящихся во viewport при загрузке.
+    // Запускаем через getBoundingClientRect + scroll-listener + fallback-таймер.
     (function () {
       var lines = document.querySelectorAll('.prob-line');
       var section = document.getElementById('problem');
@@ -1252,17 +1257,24 @@
       function start() {
         if (started) return;
         started = true;
-        setTimeout(function () { showLine(0); }, 400);
+        showLine(0);
         setInterval(function () {
           idx = (idx + 1) % lines.length;
           showLine(idx);
         }, 3200);
       }
 
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { start(); io.unobserve(section); } });
-      }, { threshold: 0.25 });
-      io.observe(section);
+      function isInView() {
+        var r = section.getBoundingClientRect();
+        return r.top < window.innerHeight * 0.8 && r.bottom > 0;
+      }
+
+      function check() { if (isInView()) { start(); window.removeEventListener('scroll', check, { passive: true }); } }
+
+      // Проверяем сразу, потом при скролле, и жёсткий fallback через 4s
+      setTimeout(function () { check(); }, 100);
+      window.addEventListener('scroll', check, { passive: true });
+      setTimeout(function () { if (!started) start(); }, 4000);
     })();
 
     // ============ SOLUTION STEPPED REVEAL ============
